@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise For You 💖</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffc2d1 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Lock Screen Container */
+        .lock-screen {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            border: 3px solid #ff85a1;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .lock-screen h2 {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .lock-screen p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .pin-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.3rem;
+            letter-spacing: 8px;
+            text-align: center;
+            border: 2px solid #ffb3c1;
+            border-radius: 12px;
+            outline: none;
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+        .unlock-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: all 0.3s ease;
+        }
+        .unlock-btn:hover {
+            background: #ff758f;
+            transform: scale(1.05);
+        }
+        .error-msg {
+            color: #e63946;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Main Surprise Container */
+        .surprise-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            max-width: 450px;
+            width: 90%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Teddy Bear with Flower */
+        .teddy-wrapper {
+            position: relative;
+            width: 180px;
+            height: 200px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        .teddy-head {
+            position: absolute;
+            width: 130px;
+            height: 110px;
+            background: #cbb29b;
+            border-radius: 50%;
+            top: 10px;
+            left: 25px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .ear {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            background: #cbb29b;
+            border-radius: 50%;
+            top: 2px;
+        }
+        .ear.left { left: 20px; }
+        .ear.right { right: 20px; }
+        .ear-inner {
+            width: 24px;
+            height: 24px;
+            background: #f7cad0;
+            border-radius: 50%;
+            margin: 9px auto;
+        }
+        .eye {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #2b2d42;
+            border-radius: 50%;
+            top: 42px;
+        }
+        .eye.left { left: 35px; }
+        .eye.right { right: 81px; }
+        .snout {
+            position: absolute;
+            width: 48px;
+            height: 36px;
+            background: #f8edeb;
+            border-radius: 50%;
+            top: 50px;
+            left: 41px;
+        }
+        .nose {
+            width: 16px;
+            height: 12px;
+            background: #5c3d2e;
+            border-radius: 50%;
+            margin: 6px auto 2px auto;
+        }
+        .mouth {
+            width: 14px;
+            height: 8px;
+            border-bottom: 2px solid #5c3d2e;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .blush {
+            position: absolute;
+            width: 18px;
+            height: 10px;
+            background: rgba(255, 133, 161, 0.5);
+            border-radius: 50%;
+            top: 55px;
+        }
+        .blush.left { left: 22px; }
+        .blush.right { right: 22px; }
+
+        .teddy-body {
+            position: absolute;
+            width: 110px;
+            height: 100px;
+            background: #cbb29b;
+            border-radius: 50% 50% 45% 45%;
+            top: 95px;
+            left: 35px;
+        }
+        .paw {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: #cbb29b;
+            border-radius: 50%;
+            top: 105px;
+        }
+        .paw.left { left: 15px; }
+        .paw.right { right: 15px; }
+
+        /* Flower / Rose */
+        .rose-flower {
+            position: absolute;
+            right: -5px;
+            top: 90px;
+            font-size: 2.2rem;
+            transform: rotate(15deg);
+            animation: sway 2s infinite ease-in-out alternate;
+        }
+
+        /* Message Card */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.25);
+            border: 2px solid #ffb3c1;
+            margin-top: 10px;
+        }
+        .card h1 {
+            color: #ff4d6d;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .card p {
+            color: #4a4e69;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .highlight {
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+        .music-btn {
+            margin-top: 15px;
+            background: #ff85a1;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            animation: float 4s linear infinite;
+            bottom: -20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes sway {
+            from { transform: rotate(10deg); }
+            to { transform: rotate(25deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="lockScreen">
+        <h2>🔒 Private Surprise!</h2>
+        <p>Surprise dekhne ke liye Passcode enter karo 💕</p>
+        <input type="password" maxlength="4" class="pin-input" id="pinInput" placeholder="****">
+        <br>
+        <button class="unlock-btn" onclick="checkPin()">Unlock ✨</button>
+        <div class="error-msg" id="errorMsg">Galat PIN! Dubara try karo 🥺 (Hint: 1234)</div>
+    </div>
+
+    <!-- Main Surprise Content -->
+    <div class="surprise-container" id="surpriseContainer">
+        
+        <!-- Teddy Bear with Rose -->
+        <div class="teddy-wrapper">
+            <div class="ear left"><div class="ear-inner"></div></div>
+            <div class="ear right"><div class="ear-inner"></div></div>
+            <div class="teddy-head">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="blush left"></div>
+                <div class="blush right"></div>
+                <div class="snout">
+                    <div class="nose"></div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
+            <div class="teddy-body"></div>
+            <div class="paw left"></div>
+            <div class="paw right"></div>
+            <div class="rose-flower">🌹</div>
+        </div>
+
+        <!-- Wish & Message Card -->
+        <div class="card">
+            <h1>Happy Birthday, My Bestie! 🎉✨</h1>
+            <p>
+                Hamesha aise hi <span class="highlight">khush raho</span> aur apni life mein bohat <span class="highlight">kamyab ho</span>! 🌸<br><br>
+                Hamesha mere <span class="highlight">sath rehna forever</span>... kyun ke <span class="highlight">TU MERI JAAN HA!</span> ❤️🧸
+            </p>
+            <button class="music-btn" onclick="toggleMusic()">🎵 Music Play / Pause</button>
+        </div>
+
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function checkPin() {
+            const inputPin = document.getElementById('pinInput').value;
+            // Default PIN rakha gaya hai 1234
+            if (inputPin === '1234') {
+                document.getElementById('lockScreen').style.display = 'none';
+                document.getElementById('surpriseContainer').style.display = 'flex';
+                
+                // Play Music
+                const music = document.getElementById('bgMusic');
+                music.play().catch(() => console.log("Audio play blocked by browser."));
+                
+                // Start Floating Hearts Effect
+                setInterval(createHeart, 400);
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+    </script>
+</body>
+</html>
