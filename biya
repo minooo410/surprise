@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        /* Teddy Bear Styling */
+        .teddy {
+            position: relative;
+            width: 160px;
+            height: 150px;
+            background: #d4a373;
+            border-radius: 50% 50% 40% 40%;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .ear {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #d4a373;
+            border-radius: 50%;
+            top: -15px;
+        }
+        .ear.left { left: 15px; }
+        .ear.right { right: 15px; }
+        
+        .ear-inner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f5cbe6;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+        .eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #333;
+            border-radius: 50%;
+            top: 45px;
+        }
+        .eye.left { left: 45px; }
+        .eye.right { right: 45px; }
+
+        .snout {
+            position: absolute;
+            width: 50px;
+            height: 35px;
+            background: #faedcd;
+            border-radius: 50%;
+            top: 60px;
+            left: 55px;
+        }
+        .nose {
+            position: absolute;
+            width: 16px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+            top: 8px;
+            left: 17px;
+        }
+        .mouth {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            border-bottom: 3px solid #333;
+            border-radius: 50%;
+            top: 20px;
+            left: 15px;
+        }
+        /* Text & Card styling */
+        h1 {
+            color: #d90429;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        p {
+            color: #6b705c;
+            font-size: 1.2rem;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .heart {
+            color: #ff4d6d;
+            font-size: 2rem;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cute Teddy Bear HTML Structure -->
+        <div class="teddy">
+            <div class="ear left"><div class="ear-inner"></div></div>
+            <div class="ear right"><div class="ear-inner"></div></div>
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="snout">
+                <div class="nose"></div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h1>Happy Birthday, Bestie! 🎉</h1>
+            <p>May your day be filled with lots of love, smiles, and happiness. Tum meri sab se achi friend ho! ✨</p>
+            <div class="heart">❤️</div>
+        </div>
+    </div>
+
+</body>
+</html>
