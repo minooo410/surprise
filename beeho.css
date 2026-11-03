@@ -39,16 +39,15 @@
         .container {
             width: 90%;
             max-width: 450px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(10px);
             border-radius: 25px;
             padding: 30px 20px;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.25);
             text-align: center;
             position: relative;
             z-index: 10;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.5s ease;
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
 
         .page {
@@ -67,16 +66,15 @@
 
         h1 {
             color: #d81b60;
-            font-size: 26px;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            font-size: 25px;
+            margin-bottom: 12px;
         }
 
         p {
             color: #555;
             font-size: 15px;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .btn {
@@ -84,26 +82,44 @@
             color: white;
             border: none;
             padding: 12px 28px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
             outline: none;
+            margin-top: 10px;
         }
 
         .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.6);
         }
 
-        /* SVG Bears Animation */
+        /* Shayari Styling */
+        .shayari-box {
+            background: #fff0f5;
+            padding: 20px;
+            border-radius: 18px;
+            border-left: 4px solid #ff4081;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .shayari-text {
+            color: #c2185b;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Bears Animation */
         .bear-container {
-            width: 180px;
-            height: 180px;
-            margin: 15px auto;
-            position: relative;
+            width: 170px;
+            height: 170px;
+            margin: 10px auto;
         }
 
         .hug-bears {
@@ -117,36 +133,24 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* Cake Styling */
-        .cake-wrapper {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 20px auto;
-            cursor: pointer;
-        }
-
         .cake-emoji {
-            font-size: 90px;
-            line-height: 140px;
+            font-size: 85px;
+            cursor: pointer;
             user-select: none;
+            margin: 10px 0;
+            transition: transform 0.2s;
         }
 
-        .flame-hint {
-            font-size: 12px;
-            color: #888;
-            margin-top: -10px;
-            margin-bottom: 15px;
+        .cake-emoji:active {
+            transform: scale(0.9);
         }
 
-        /* Message Box */
         .wish-box {
             background: #fff0f5;
             padding: 18px;
             border-radius: 15px;
             border: 1px dashed #ffb6c1;
-            margin-top: 15px;
-            text-align: center;
+            margin-top: 12px;
         }
 
         .wish-box p {
@@ -154,30 +158,64 @@
             font-weight: 500;
             margin-bottom: 0;
         }
+
+        /* Music Floating Control */
+        .music-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border: 2px solid #ff4081;
+            color: #ff4081;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Background Hearts -->
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-piano-112179.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-btn" onclick="toggleMusic()" id="m-btn">🎵 Play Music</button>
+
     <div id="hearts-container"></div>
 
     <div class="container">
-        <!-- Page 1: Intro -->
+        <!-- Page 1: Welcome -->
         <div class="page active" id="page1">
             <div style="font-size: 50px; margin-bottom: 10px;">🎁</div>
             <h1>Hey Biya! ✨</h1>
-            <p>Tumhare liye ek chhota sa sweet surprise hai... Kya tum dekhna chahogi?</p>
-            <button class="btn" onclick="nextPage(2)">Haan, Dikhayein! 💖</button>
+            <p>Tumhare liye ek pyara sa surprise hai! Music start karke aage badhein... 🎶</p>
+            <button class="btn" onclick="startSurprise()">Aage Chalein 💖</button>
         </div>
 
-        <!-- Page 2: Hugging Bears -->
+        <!-- Page 2: Shayari -->
         <div class="page" id="page2">
-            <h1>Sending Big Hugs! 🤗</h1>
-            
+            <h1>Special Shayari 🌸</h1>
+            <div class="shayari-box">
+                <p class="shayari-text">
+                    "Khushiyon se bhari ho zindagi tumhari,<br>
+                    Har din ho jaise koi pyari bahar,<br>
+                    Janamdin par miley tumhein woh sab kuch,<br>
+                    Jo tum chaho dil se har baar!" ✨
+                </p>
+            </div>
+            <button class="btn" onclick="nextPage(3)">Next: Hug Hug Hug 🤗</button>
+        </div>
+
+        <!-- Page 3: Hugging Bears -->
+        <div class="page" id="page3">
+            <h1>Sending Warm Hugs! 🤗</h1>
             <div class="bear-container">
-                <!-- Cute SVG Hugging Bears -->
                 <svg class="hug-bears" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Left Bear -->
                     <g transform="translate(25, 30)">
                         <circle cx="40" cy="35" r="14" fill="#a67c52"/>
                         <circle cx="40" cy="35" r="8" fill="#d7ccc8"/>
@@ -190,10 +228,8 @@
                         <circle cx="72" cy="60" r="4" fill="#3e2723"/>
                         <circle cx="48" cy="67" r="5" fill="#ffb6c1" opacity="0.6"/>
                         <circle cx="76" cy="67" r="5" fill="#ffb6c1" opacity="0.6"/>
-                        <!-- Body -->
                         <path d="M 38 90 Q 62 80 86 90 Q 95 130 62 135 Q 29 130 38 90 Z" fill="#b08968"/>
                     </g>
-                    <!-- Right Bear -->
                     <g transform="translate(65, 35)">
                         <circle cx="35" cy="35" r="13" fill="#e0ab76"/>
                         <circle cx="35" cy="35" r="7" fill="#ffe0b2"/>
@@ -206,57 +242,64 @@
                         <circle cx="66" cy="60" r="4" fill="#3e2723"/>
                         <circle cx="44" cy="66" r="4" fill="#ffb6c1"/>
                         <circle cx="70" cy="66" r="4" fill="#ffb6c1"/>
-                        <!-- Body -->
                         <path d="M 35 90 Q 57 80 79 90 Q 88 128 57 132 Q 26 128 35 90 Z" fill="#eddcd2"/>
                     </g>
-                    <!-- Hugging Arms -->
                     <path d="M 70 120 Q 110 110 125 125" stroke="#b08968" stroke-width="14" stroke-linecap="round" fill="none"/>
                     <path d="M 130 120 Q 90 110 75 125" stroke="#eddcd2" stroke-width="14" stroke-linecap="round" fill="none"/>
-                    <!-- Little Floating Heart -->
                     <path d="M 100 45 C 100 40, 90 35, 85 45 C 80 55, 100 68, 100 68 C 100 68, 120 55, 115 45 C 110 35, 100 40, 100 45 Z" fill="#ff4081">
                         <animate transform="translate(0, -5)" attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="1.5s" repeatCount="indefinite"/>
                     </path>
                 </svg>
             </div>
-
-            <p>A warm, cozy hug for you before the main surprise! 🐾✨</p>
-            <button class="btn" onclick="nextPage(3)">Next Page ➡️</button>
+            <p>A cute bear hug for you! 🐾💖</p>
+            <button class="btn" onclick="nextPage(4)">Final Surprise ➡️</button>
         </div>
 
-        <!-- Page 3: Birthday Wish -->
-        <div class="page" id="page3">
+        <!-- Page 4: Birthday Wish -->
+        <div class="page" id="page4">
             <h1>Happy Birthday Biya! 🎉🎂</h1>
-            
-            <div class="cake-wrapper" onclick="popConfetti()">
-                <div class="cake-emoji">🎂</div>
-            </div>
-            <div class="flame-hint">(Tap the cake for surprise!)</div>
+            <div class="cake-emoji" onclick="popConfetti()">🎂</div>
+            <p style="font-size: 12px; color: #888;">(Cake par tap karke confetti udayein!)</p>
 
             <div class="wish-box">
                 <p>
                     Wish you a very Happy Birthday! 🌸<br><br>
-                    May your year ahead be filled with endless happiness, immense success, bright smiles, and all the love you deserve! Stay blessed always! ✨💖
+                    May your life be filled with happiness, success, bright smiles, and cute moments. Always stay blessed! ✨💖
                 </p>
             </div>
         </div>
     </div>
 
     <script>
-        function nextPage(pageNumber) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById('page' + pageNumber).classList.add('active');
-            
-            if(pageNumber === 3) {
-                popConfetti();
+        const music = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('m-btn');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicBtn.innerText = "⏸️ Pause Music";
+            } else {
+                music.pause();
+                musicBtn.innerText = "🎵 Play Music";
             }
         }
 
-        // Floating Hearts Setup
+        function startSurprise() {
+            music.play().then(() => {
+                musicBtn.innerText = "⏸️ Pause Music";
+            }).catch(() => {});
+            nextPage(2);
+        }
+
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+            if(pageNumber === 4) popConfetti();
+        }
+
+        // Floating Hearts
         const heartsContainer = document.getElementById('hearts-container');
         const heartSymbols = ['💖', '💗', '🌸', '✨', '💕'];
-        
         for (let i = 0; i < 18; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart-bg';
@@ -268,7 +311,7 @@
             heartsContainer.appendChild(heart);
         }
 
-        // Simple Emoji Confetti Effect
+        // Confetti Effect
         function popConfetti() {
             const emojis = ['🎉', '✨', '🎈', '💖', '⭐'];
             for (let i = 0; i < 25; i++) {
@@ -287,9 +330,7 @@
                     conf.style.opacity = '0';
                 }, 50);
 
-                setTimeout(() => {
-                    conf.remove();
-                }, 2600);
+                setTimeout(() => conf.remove(), 2600);
             }
         }
     </script>
