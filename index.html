@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise 💗</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffe0ec, #f8d9ff, #fff0f5);
+    font-family: Georgia, serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+.card {
+    background: rgba(255,255,255,0.85);
+    padding: 40px 25px;
+    width: 90%;
+    max-width: 430px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px #e7a9c5;
+    position: relative;
+    z-index: 2;
+}
+
+.flower {
+    font-size: 55px;
+}
+
+h1 {
+    color: #d85b91;
+    font-size: 30px;
+}
+
+p {
+    color: #88536c;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+button {
+    background: #ed83ae;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d9578c;
+    transform: scale(1.05);
+}
+
+#message {
+    display: none;
+    margin-top: 22px;
+    color: #c64d83;
+    animation: appear 1s ease;
+}
+
+.heart {
+    position: absolute;
+    bottom: -30px;
+    animation: float 7s linear infinite;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+@keyframes float {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes appear {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="flower">🌷💗🌷</div>
+
+    <h1>A Little Surprise!</h1>
+
+    <p>
+        Hey, someone special! 💕<br>
+        I made something little and cute just for you.
+    </p>
+
+    <button onclick="openGift()">
+        Open Your Surprise 🎁
+    </button>
+
+    <div id="message">
+        <h2>You're Special! 💖</h2>
+
+        <p>
+            Some people make ordinary days beautiful.
+            You're one of those people! 🌸
+            <br><br>
+            Thank you for being a wonderful friend.
+            Keep smiling and stay happy always! 🦋
+        </p>
+
+        <div style="font-size:35px;">💗🌸🧸💗</div>
+    </div>
+
+</div>
+
+<script>
+function openGift() {
+    document.getElementById("message").style.display = "block";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = ["💗", "💕", "🌸", "✨"][Math.floor(Math.random()*4)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*20) + "px";
+    heart.style.animationDuration = (4 + Math.random()*5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 9000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
