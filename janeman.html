@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Abeera — Meri Jaan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #36125c 0%, #160729 58%, #090212 100%);
+      color: #fff8ff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 24px 16px 48px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .floating-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .teddy-float {
+      position: absolute;
+      bottom: -60px;
+      font-size: 2rem;
+      opacity: 0.72;
+      animation: riseTeddy linear infinite;
+    }
+
+    @keyframes riseTeddy {
+      0% {
+        transform: translateY(0) translateX(0) rotate(-6deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.78;
+      }
+      85% {
+        opacity: 0.72;
+      }
+      100% {
+        transform: translateY(-112vh) translateX(24px) rotate(8deg);
+        opacity: 0;
+      }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Lock Screen */
+    .lock-screen {
+      max-width: 440px;
+      margin: 50px auto;
+      background: rgba(28, 12, 48, 0.88);
+      border: 1px solid rgba(255, 166, 217, 0.25);
+      border-radius: 26px;
+      padding: 34px 24px;
+      text-align: center;
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(14px);
+    }
+
+    .lock-teddies {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      animation: bounceTeddy 2s infinite ease-in-out;
+    }
+
+    @keyframes bounceTeddy {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .lock-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ff8ad4, #dcb5ff, #ffd166);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lock-sub {
+      color: #dfc9f7;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .pin-input {
+      width: 100%;
+      max-width: 220px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 158, 214, 0.35);
+      background: rgba(10, 3, 20, 0.7);
+      color: #fff;
+      font-size: 1.2rem;
+      letter-spacing: 6px;
+      text-align: center;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .pin-input:focus {
+      border-color: #ff79c6;
+      box-shadow: 0 0 16px rgba(255, 121, 198, 0.35);
+    }
+
+    .unlock-btn {
+      display: inline-block;
+      padding: 11px 26px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff69b4, #9b6dff);
+      color: #fff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .unlock-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .lock-hint {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: #bfa3e0;
+    }
+
+    .lock-error {
+      margin-top: 10px;
+      min-height: 20px;
+      font-size: 0.88rem;
+      color: #ff94c2;
+    }
+
+    /* Main Story App */
+    .story-app {
+      display: none;
+    }
+
+    .story-app.active {
+      display: block;
+    }
+
+    .top-bar {
+      background: rgba(25, 11, 44, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.06);
+      color: #dfd0f5;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #ff69b4, #9b6dff);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 16px rgba(255, 105, 180, 0.35);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #d2bce8;
+      margin-bottom: 10px;
+    }
+
+    .pill-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-pill {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, #ff7eb6, #c084fc, #ffd166);
+      transition: width 0.4s ease;
+    }
+
+    .hero-card {
+      background: linear-gradient(160deg, rgba(46, 19, 77, 0.9), rgba(20, 8, 36, 0.94));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 26px;
+      padding: 34px 24px;
+      text-align: center;
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(14px);
+      margin-bottom: 22px;
+    }
+
+    .teddy-stage {
+      font-size: 3.4rem;
+      margin-bottom: 10px;
+      animation: bounceTeddy 2.4s infinite ease-in-out;
+    }
+
+    .chapter-kicker {
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff9ed2;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ffffff, #ffd9ed, #e2c7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      max-width: 630px;
+      margin: 0 auto 24px;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #e8dafc;
+    }
+
+    .nav-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #ff69b4, #9b6dff);
+      border: none;
+    }
+
+    .summary-panel {
+      background: rgba(25, 12, 44, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .summary-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .summary-label {
+      font-size: 0.78rem;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: #c2a3f7;
+      font-weight: 700;
+    }
+
+    .badge-pill {
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(255, 105, 180, 0.16);
+      border: 1px solid rgba(255, 105, 180, 0.35);
+      color: #ffc2e3;
+    }
+
+    .summary-heading {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .quote-line {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #f5ecff;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+    }
+
+    .mini-card h3 {
+      font-size: 1rem;
+      color: #ffa6d6;
+      margin-bottom: 8px;
+    }
+
+    .mini-card p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: #e9dcfb;
+    }
+
+    @media (max-width: 640px) {
+      .grid-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-layer" id="floatingLayer"></div>
+
+  <div class="wrapper">
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="lockScreen">
+      <div class="lock-teddies">🧸💖🧸</div>
+      <h1 class="lock-title">Secret For Abeera</h1>
+      <p class="lock-sub">
+        Meri sab se achi dost aur meri jaan ke liye ek chota sa surprise. Unlock karne ke liye secret code enter karein.
+      </p>
+      <input
+        type="password"
+        id="pinInput"
+        class="pin-input"
+        maxlength="6"
+        placeholder="••••"
+        onkeydown="if(event.key==='Enter') unlockSurprise()"
+      />
+      <div>
+        <button class="unlock-btn" onclick="unlockSurprise()">Unlock Surprise 🔓</button>
+      </div>
+      <div class="lock-error" id="lockError"></div>
+      <div class="lock-hint">Hint: 410 (ya code me apni marzi ka PIN set kar sakti hain)</div>
+    </div>
+
+    <!-- Main 5-Scene Story -->
+    <div class="story-app" id="storyApp">
+      <div class="top-bar">
+        <div class="tabs" id="tabs"></div>
+        <div class="status-row">
+          <span id="sceneStatus">Scene 1 / 5 • Intro</span>
+          <div class="pill-controls">
+            <button class="mini-pill" id="soundBtn" onclick="toggleSound()">Sound: ON 🔊</button>
+            <button class="mini-pill" id="autoBtn" onclick="toggleAuto()">Auto-Play: ON</button>
+          </div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="teddy-stage" id="teddyStage">🧸💖</div>
+        <div class="chapter-kicker" id="kicker">Chapter I • Special Day</div>
+        <h1 class="hero-title" id="heroTitle">Happy Birthday, Abeera</h1>
+        <p class="hero-sub" id="heroSub"></p>
+        <div class="nav-controls">
+          <button class="nav-btn" onclick="prevChapter()">Previous</button>
+          <button class="nav-btn primary" onclick="nextChapter()">Next Scene</button>
+          <button class="nav-btn" onclick="goChapter(0)">Restart</button>
+        </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="summary-top">
+          <span class="summary-label">Official Tribute Summary</span>
+          <span class="badge-pill">🧸 Best Friend • Meri Jaan</span>
+        </div>
+        <div class="summary-heading">Happy Birthday, Abeera 💖</div>
+        <div class="quote-line">“May every dream you whisper under the stars find its way to you.”</div>
+
+        <div class="grid-cards">
+          <div class="mini-card">
+            <h3>🧸 To My Dearest Abeera</h3>
+            <p>Happy birthday, meri jaan! Having you as my best friend is one of the greatest gifts in my life. May your days always be filled with peace, warmth, and reasons to smile.</p>
+          </div>
+          <div class="mini-card">
+            <h3>🌸 Shine Brighter Every Year</h3>
+            <p>You deserve every good thing coming your way—success in your goals, calm in your heart, and people who cherish you as deeply as you cherish others.</p>
+          </div>
+          <div class="mini-card">
+            <h3>💖 Always In Your Corner</h3>
+            <p>Through every season, high or low, you always have a best friend cheering for you, praying for you, and celebrating every little win beside you.</p>
+          </div>
+          <div class="mini-card">
+            <h3>✨ Forever & Always</h3>
+            <p>Here is to more laughter, late-night talks, shared dreams, and unbreakable friendship. Stay happy, stay blessed, meri jaan Abeera.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SECRET_PIN = "410";
+
+    const chapters = [
+      {
+        tab: "1. Intro",
+        teddy: "🧸🎉",
+        status: "Scene 1 / 5 • Intro",
+        kicker: "Chapter I • Special Day",
+        title: "Happy Birthday, Abeera",
+        sub: "Aaj ka din mere liye sab se khaas hai kyunke aaj meri sab se achi dost, meri jaan Abeera ka birthday hai. Yeh chote se teddy bears aur pyari si duaayein sirf tumhare liye hain."
+      },
+      {
+        tab: "2. Memories",
+        teddy: "🧸💞",
+        status: "Scene 2 / 5 • Memories",
+        kicker: "Chapter II • Cherished Moments",
+        title: "Har Hassi Aur Har Yaad Khaas Hai",
+        sub: "Abeera, tum sirf ek dost nahi ho—tum meri jaan ho. Tumhare saath bitaayi har baat, har hassi aur har lamha meri zindagi ki sab se khoobsurat yaadon mein se ek hai."
+      },
+      {
+        tab: "3. Wishes",
+        teddy: "🧸🌸",
+        status: "Scene 3 / 5 • Wishes",
+        kicker: "Chapter III • Heartfelt Duas",
+        title: "Khushiyan, Sukoon Aur Kamyabi",
+        sub: "Meri dil se dua hai ke tumhari life hamesha khushiyon, sehat, sukoon aur kamyabiyon se bhari rahe. Tumhara har din itna hi pyara ho jitna tumhara dil hai."
+      },
+      {
+        tab: "4. Cake",
+        teddy: "🧸🎂",
+        status: "Scene 4 / 5 • Make a Wish",
+        kicker: "Chapter IV • Birthday Wish",
+        title: "Make a Wish, Meri Jaan",
+        sub: "Aapni aakhon band karo aur ek pyari si wish maango Abeera—kyunke aaj ka din sirf tumhara hai, aur main dil se chahti hoon ke tumhare har sapne poore hon."
+      },
+      {
+        tab: "5. Finale",
+        teddy: "🧸🥂💖",
+        status: "Scene 5 / 5 • Grand Finale",
+        kicker: "Chapter V • Grand Finale",
+        title: "Forever Wishing You Joy, Abeera",
+        sub: "Happy Birthday once again, meri jaan Abeera! Chahe waqt badle ya halaat, meri duaayein aur meri dosti hamesha tumhare saath rahengi. Hamesha muskurati raho!"
+      }
+    ];
+
+    let current = 0;
+    let autoPlay = true;
+    let soundEnabled = true;
+    let timer = null;
+    let audioCtx = null;
+
+    const tabsEl = document.getElementById("tabs");
+    const teddyStageEl = document.getElementById("teddyStage");
+    const statusEl = document.getElementById("sceneStatus");
+    const progressEl = document.getElementById("progressFill");
+    const kickerEl = document.getElementById("kicker");
+    const titleEl = document.getElementById("heroTitle");
+    const subEl = document.getElementById("heroSub");
+    const autoBtn = document.getElementById("autoBtn");
+    const soundBtn = document.getElementById("soundBtn");
+
+    function playSoftChime(notes = [523.25, 659.25, 783.99]) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+
+          const startTime = audioCtx.currentTime + idx * 0.14;
+          gain.gain.setValueAtTime(0.001, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.06, startTime + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.55);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.58);
+        });
+      } catch (e) {}
+    }
+
+    function unlockSurprise() {
+      const val = document.getElementById("pinInput").value.trim();
+      const errEl = document.getElementById("lockError");
+      if (val === SECRET_PIN) {
+        errEl.textContent = "";
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("storyApp").classList.add("active");
+        playSoftChime([523.25, 659.25, 783.99, 1046.5]);
+        renderChapter();
+        restartTimer();
+      } else {
+        errEl.textContent = "Galat PIN hai—dobara try karein!";
+      }
+    }
+
+    function buildTabs() {
+      tabsEl.innerHTML = "";
+      chapters.forEach((ch, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "tab-btn" + (idx === current ? " active" : "");
+        btn.textContent = ch.tab;
+        btn.onclick = () => {
+          goChapter(idx);
+          playSoftChime([587.33, 880]);
+        };
+        tabsEl.appendChild(btn);
+      });
+    }
+
+    function renderChapter() {
+      const ch = chapters[current];
+      teddyStageEl.textContent = ch.teddy;
+      kickerEl.textContent = ch.kicker;
+      titleEl.textContent = ch.title;
+      subEl.textContent = ch.sub;
+      statusEl.textContent = ch.status;
+      progressEl.style.width = `${((current + 1) / chapters.length) * 100}%`;
+      buildTabs();
+    }
+
+    function goChapter(idx) {
+      current = idx;
+      renderChapter();
+      restartTimer();
+    }
+
+    function nextChapter() {
+      current = (current + 1) % chapters.length;
+      renderChapter();
+      playSoftChime([659.25, 783.99]);
+      restartTimer();
+    }
+
+    function prevChapter() {
+      current = (current - 1 + chapters.length) % chapters.length;
+      renderChapter();
+      playSoftChime([523.25, 659.25]);
+      restartTimer();
+    }
+
+    function restartTimer() {
+      if (timer) clearInterval(timer);
+      if (autoPlay) {
+        timer = setInterval(() => {
+          current = (current + 1) % chapters.length;
+          renderChapter();
+          playSoftChime([523.25, 783.99]);
+        }, 6500);
+      }
+    }
+
+    function toggleAuto() {
+      autoPlay = !autoPlay;
+      autoBtn.textContent = `Auto-Play: ${autoPlay ? "ON" : "OFF"}`;
+      restartTimer();
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? "Sound: ON 🔊" : "Sound: OFF 🔇";
+      if (soundEnabled) {
+        playSoftChime([523.25, 659.25]);
+      }
+    }
+
+    function populateTeddies() {
+      const layer = document.getElementById("floatingLayer");
+      const icons = ["🧸", "💖", "🧸", "✨", "🧸", "🌸"];
+      for (let i = 0; i < 14; i++) {
+        const item = document.createElement("div");
+        item.className = "teddy-float";
+        item.textContent = icons[i % icons.length];
+        item.style.left = `${5 + Math.random() * 90}%`;
+        item.style.animationDuration = `${10 + Math.random() * 8}s`;
+        item.style.animationDelay = `${Math.random() * 7}s`;
+        layer.appendChild(item);
+      }
+    }
+
+    populateTeddies();
+  </script>
+</body>
+</html>
