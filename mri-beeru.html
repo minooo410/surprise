@@ -1,0 +1,82 @@
+import time
+import sys
+
+def happy_birthday(name: str = "Abeera", sender: str = "Tumhara Sab Se Acha Dost"):
+    banner = f" 💖 HAPPY BIRTHDAY, {name.upper()}! 💖 "
+    border = "=" * len(banner)
+
+    message_lines = [
+        "",
+        border,
+        banner,
+        border,
+        f"  {name}, tum meri sab se achi dost ho aur meri jaan bhi.",
+        "  Tumhari muskurahat se har din roshan aur khubsurat lagta hai.",
+        "  Dua hai ke tumhara naya saal khushiyon, sehat aur kamyabi se bhara ho!",
+        f"  — With endless love & respect, {sender}",
+        ""
+    ]
+
+    for line in message_lines:
+        for ch in line:
+            sys.stdout.write(ch)
+            sys.stdout.flush()
+            time.sleep(0.015)
+        print()
+
+if __name__ == "__main__":
+    happy_birthday()
+
+
+# 🎂 Happy Birthday, Abeera! 💖
+
+> *"Tum meri sab se achi dost ho aur sach kahun to meri jaan bhi."* — **Tumhara Sab Se Acha Dost**
+
+![Birthday Badge](https://img.shields.io/badge/Happy%20Birthday-Abeera-ff5d8f?style=for-the-badge)
+![Best Friend](https://img.shields.io/badge/Title-Meri%20Sab%20Se%20Achi%20Dost-ffd166?style=for-the-badge)
+![Meri Jaan](https://img.shields.io/badge/Heart-Meri%20Jaan-fb7185?style=for-the-badge)
+
+### ✨ Birthday Wishes for Abeera
+- 🌸 Har subah tumhari muskurahat ke saath shuru ho.
+- 💫 Har khwab poora ho aur har din yaadgar banayein.
+- 🫶 Hamari dosti aur mohabbat hamesha yunhi qaim rahe.
+
+```text
+    ✨    💖    🎂    💖    ✨
+       Happy Birthday, Abeera!
+    Meri Sab Se Achi Dost • Meri Jaan
+```
+
+name: Happy Birthday Abeera
+
+on:
+  schedule:
+    # Runs daily at 00:00 PKT (19:00 UTC previous day)
+    - cron: "0 19 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  wish-abeera:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Check birthday and post greeting issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          # Update BIRTHDAY_MMDD to Abeera's birthday (MM-DD)
+          BIRTHDAY_MMDD: "11-20"
+          FRIEND_NAME: "Abeera"
+          SENDER_NAME: "Tumhara Sab Se Acha Dost"
+        run: |
+          TODAY_MMDD=$(date -u +%m-%d)
+          if [ "$TODAY_MMDD" = "$BIRTHDAY_MMDD" ]; then
+            gh issue create \
+              --repo "$REPO" \
+              --title "🎂 Happy Birthday, $FRIEND_NAME! 💖" \
+              --body "Meri sab se achi dost, meri jaan $FRIEND_NAME — Happy Birthday! Wishing you endless happiness and bright days ahead. — $SENDER_NAME"
+          else
+            echo "Today is $TODAY_MMDD; target birthday is $BIRTHDAY_MMDD."
+          fi
+
