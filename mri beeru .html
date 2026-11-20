@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Abeera - Meri Jaan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #0d0614, #2a0845, #12002b);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+    
+    /* Background Floating Hearts */
+    .heart-particle {
+      position: absolute;
+      color: rgba(255, 105, 180, 0.4);
+      font-size: 20px;
+      animation: floatUp 8s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      max-width: 650px;
+      width: 100%;
+      padding: 35px 25px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(216, 112, 147, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, #ff79c6, #bd93f9, #ff922b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      color: #d8b4fe;
+      font-size: 1rem;
+      margin-bottom: 25px;
+    }
+
+    /* Screen Slides */
+    .story-box {
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      margin-bottom: 25px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .chapter-badge {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: rgba(189, 147, 249, 0.2);
+      color: #ff79c6;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .story-text {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #f8f8f2;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10deg); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff79c6, #bd93f9);
+      border: none;
+      color: #0d0614;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 121, 198, 0.4);
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 121, 198, 0.6);
+    }
+    button.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      box-shadow: none;
+    }
+    button.secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Cake Animation */
+    .cake-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating background hearts -->
+  <div id="heart-container"></div>
+
+  <div class="card">
+    <div class="cake-icon">🎂✨</div>
+    <h1 class="title">Happy Birthday Abeera!</h1>
+    <p class="subtitle">Meri Sab Se Achi Dost • Meri Jaan ❤️</p>
+
+    <div class="story-box" id="storyBox">
+      <div class="chapter-badge" id="chapterBadge">Chapter 1</div>
+      <div class="story-text" id="storyText">Loading story...</div>
+    </div>
+
+    <div class="controls">
+      <button class="secondary" onclick="prevSlide()">◀ Back</button>
+      <button id="playBtn" onclick="togglePlay()">Pause ⏸</button>
+      <button class="secondary" onclick="nextSlide()">Next ▶</button>
+    </div>
+  </div>
+
+  <script>
+    // Story Slides Data (Lambi Video Style Experience)
+    const slides = [
+      {
+        chapter: "Chapter 1 • The Celebration Starts",
+        text: "Aaj ka din bohot special hai kyun ke aaj meri sab se pyari, sab se sachi aur sab se khoobsurat dost <b>Abeera</b> ka birthday hai! 🎉💖"
+      },
+      {
+        chapter: "Chapter 2 • Meri Jaan",
+        text: "Abeera, tum sirf meri dost nahi ho... tum meri jaan ho! Tumhare saath har baatchaat, har hassi aur har pal bohot khass hota hai. 🌸✨"
+      },
+      {
+        chapter: "Chapter 3 • Constant Support",
+        text: "Jab bhi mujhe zaroorat hui, tum hamesha mere saath khari rahi. Tumhari dosti mere liye ek bohot bara gift hai. 👭💖"
+      },
+      {
+        chapter: "Chapter 4 • Endless Wishes",
+        text: "Meri dua hai ke tumhari life me hamesha khushiyan, success, peace aur bohot saara pyaar rahe. Tum jo bhi chaho woh tumhe mile! 🎂🌟"
+      },
+      {
+        chapter: "Chapter 5 • Cake & Smiles",
+        text: "Make a wish, Abeera! 🕯️✨ Aj ke din bohot saari khushiyan manao aur hamesha aise hi muskurati raho!"
+      },
+      {
+        chapter: "Final Chapter • Forever Best Friends",
+        text: "Happy Birthday once again Abeera! May our friendship stay strong forever. Stay blessed always, my bestie! 💖🎈🥂"
+      }
+    ];
+
+    let currentIndex = 0;
+    let isPlaying = true;
+    let timer = null;
+
+    function renderSlide() {
+      const storyBox = document.getElementById('storyBox');
+      const badge = document.getElementById('chapterBadge');
+      const text = document.getElementById('storyText');
+
+      badge.innerText = slides[currentIndex].chapter;
+      text.innerHTML = slides[currentIndex].text;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      renderSlide();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      renderSlide();
+    }
+
+    function togglePlay() {
+      const btn = document.getElementById('playBtn');
+      if (isPlaying) {
+        clearInterval(timer);
+        isPlaying = false;
+        btn.innerText = "Play ▶";
+      } else {
+        startAutoPlay();
+        isPlaying = true;
+        btn.innerText = "Pause ⏸";
+      }
+    }
+
+    function startAutoPlay() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        nextSlide();
+      }, 5000); // 5 seconds per slide
+    }
+
+    // Create background hearts
+    function createHearts() {
+      const container = document.getElementById('heart-container');
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-particle';
+        heart.innerText = ['💖', '✨', '🌸', '🎂', '💕'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+        container.appendChild(heart);
+      }
+    }
+
+    // Initialize
+    renderSlide();
+    startAutoPlay();
+    createHearts();
+  </script>
+</body>
+</html>
