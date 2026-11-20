@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Abeera</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #3b0d5c 0%, #170529 55%, #090112 100%);
+      color: #fff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .glow {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      filter: blur(95px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow.one {
+      background: #ff5ec4;
+      top: -80px;
+      left: -80px;
+    }
+
+    .glow.two {
+      background: #9d5cff;
+      bottom: -80px;
+      right: -80px;
+    }
+
+    .box {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 660px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 26px;
+      padding: 34px 26px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(14px);
+    }
+
+    .top-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 94, 196, 0.16);
+      border: 1px solid rgba(255, 94, 196, 0.35);
+      color: #ffb3e6;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+      line-height: 1.2;
+      background: linear-gradient(90deg, #ff79c6, #d4a5ff, #ffd166);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      color: #e2c6ff;
+      font-size: 1rem;
+      margin-bottom: 22px;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff79c6, #bd93f9);
+      transition: width 0.35s ease;
+    }
+
+    .scene {
+      min-height: 230px;
+      background: rgba(10, 2, 20, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 26px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .emoji-stage {
+      font-size: 3.4rem;
+      margin-bottom: 14px;
+      animation: floatSoft 2.4s ease-in-out infinite;
+    }
+
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .scene-title {
+      font-size: 0.9rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #ff9ad5;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .scene-text {
+      font-size: clamp(1.08rem, 2.5vw, 1.28rem);
+      line-height: 1.75;
+      color: #faf5ff;
+      max-width: 540px;
+      animation: fadeSlide 0.55s ease;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, #ff79c6, #bd93f9);
+      color: #160426;
+    }
+
+    .btn-sub {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #cbb2e8;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="box">
+    <div class="top-tag">Birthday Special Story</div>
+    <h1>Happy Birthday Abeera</h1>
+    <p class="sub">Meri sab se achi dost • Meri jaan</p>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="scene">
+      <div class="emoji-stage" id="sceneEmoji">🎂</div>
+      <div class="scene-title" id="sceneLabel">Scene 1 of 8</div>
+      <div class="scene-text" id="sceneText"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-sub" onclick="prevScene()">Prev</button>
+      <button class="btn-main" id="playPauseBtn" onclick="togglePlay()">Pause</button>
+      <button class="btn-sub" onclick="nextScene()">Next</button>
+      <button class="btn-sub" onclick="restartStory()">Replay</button>
+    </div>
+
+    <div class="footer-note">Har 6 second ke baad agla scene khud chalega</div>
+  </div>
+
+  <script>
+    const scenes = [
+      {
+        emoji: "🎉",
+        label: "Scene 1 of 8 • Aaj Ka Din",
+        text: "Aaj ka din mere liye sab se khaas hai kyunke aaj meri sab se achi dost, meri jaan Abeera ka birthday hai."
+      },
+      {
+        emoji: "💖",
+        label: "Scene 2 of 8 • Meri Jaan",
+        text: "Abeera, tum sirf ek dost nahi ho—tum meri jaan ho. Tumhari baatein, tumhari care aur tumhara saath meri life ka sab se pyara hissa hai."
+      },
+      {
+        emoji: "🌸",
+        label: "Scene 3 of 8 • Har Waqt Ka Saath",
+        text: "Chahe din acha ho ya mushkil waqt, tumne hamesha mujhe samjha aur mera saath diya. Aisi sachi dosti bohot kam milti hai."
+      },
+      {
+        emoji: "😂",
+        label: "Scene 4 of 8 • Hasi Aur Yaadein",
+        text: "Tumhare saath bitaaya har lamha, har choti si baat aur har hassi ek khoobsurat yaad ban jaati hai jise main kabhi nahi bhool sakti."
+      },
+      {
+        emoji: "✨",
+        label: "Scene 5 of 8 • Meri Duayein",
+        text: "Meri dil se dua hai ke Allah tumhari zindagi ko hamesha khushiyon, sukoon, sehat aur bepanah kamyabiyon se bhar de."
+      },
+      {
+        emoji: "🌟",
+        label: "Scene 6 of 8 • Tumhare Sapne",
+        text: "Jo bhi sapne tumne apni aankhon mein sajaye hain, woh sab poore hon aur har kadam par tumhe kamyabi mile."
+      },
+      {
+        emoji: "🎂",
+        label: "Scene 7 of 8 • Birthday Wish",
+        text: "Aaj apni aakhon band karo aur ek pyari si wish maango Abeera—kyunke aaj ka din sirf tumhara hai."
+      },
+      {
+        emoji: "🥂",
+        label: "Scene 8 of 8 • Hamesha Saath",
+        text: "Happy Birthday once again, meri jaan Abeera! Hamesha aise hi muskurati raho aur hamari dosti hamesha aisi hi qaim rahe."
+      }
+    ];
+
+    let index = 0;
+    let playing = true;
+    let interval = null;
+
+    const emojiEl = document.getElementById("sceneEmoji");
+    const labelEl = document.getElementById("sceneLabel");
+    const textEl = document.getElementById("sceneText");
+    const barEl = document.getElementById("progressBar");
+    const playBtn = document.getElementById("playPauseBtn");
+
+    function renderScene() {
+      const current = scenes[index];
+      emojiEl.textContent = current.emoji;
+      labelEl.textContent = current.label;
+      textEl.style.animation = "none";
+      void textEl.offsetWidth;
+      textEl.style.animation = "fadeSlide 0.55s ease";
+      textEl.textContent = current.text;
+      barEl.style.width = `${((index + 1) / scenes.length) * 100}%`;
+    }
+
+    function nextScene() {
+      index = (index + 1) % scenes.length;
+      renderScene();
+    }
+
+    function prevScene() {
+      index = (index - 1 + scenes.length) % scenes.length;
+      renderScene();
+    }
+
+    function startTimer() {
+      stopTimer();
+      interval = setInterval(nextScene, 6000);
+    }
+
+    function stopTimer() {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+    }
+
+    function togglePlay() {
+      playing = !playing;
+      if (playing) {
+        playBtn.textContent = "Pause";
+        startTimer();
+      } else {
+        playBtn.textContent = "Play";
+        stopTimer();
+      }
+    }
+
+    function restartStory() {
+      index = 0;
+      renderScene();
+      if (playing) {
+        startTimer();
+      }
+    }
+
+    renderScene();
+    startTimer();
+  </script>
+</body>
+</html>
