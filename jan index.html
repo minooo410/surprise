@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubu & Dudu 💖 Princess Abeera 👑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 45%, #fbc2eb 75%, #a18cd1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 15px;
+        }
+
+        /* Floating Bubu Dudu Hearts & Sparkles */
+        .floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floater {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp linear infinite;
+            opacity: 0.88;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0.95;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Royal Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 2.5px solid rgba(255, 255, 255, 0.92);
+            border-radius: 32px;
+            padding: 25px 18px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 20px 45px rgba(214, 28, 78, 0.25), inset 0 0 22px rgba(255, 255, 255, 0.7);
+            z-index: 10;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .crown-badge {
+            font-size: 2.2rem;
+            margin-bottom: -6px;
+            display: block;
+            animation: floatCrown 2.5s ease-in-out infinite;
+        }
+
+        @keyframes floatCrown {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-6px) rotate(3deg); }
+        }
+
+        .cute-sticker {
+            width: 132px;
+            height: 132px;
+            object-fit: contain;
+            border-radius: 22px;
+            margin: 4px auto 8px;
+            display: block;
+            filter: drop-shadow(0 8px 15px rgba(255, 77, 109, 0.25));
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cute-sticker:hover {
+            transform: scale(1.08);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.45rem;
+            color: #c9184a;
+            margin: 2px 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.85);
+        }
+
+        .subtitle {
+            color: #6d1b36;
+            font-size: 0.88rem;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .pin-input {
+            width: 170px;
+            padding: 11px;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 8px;
+            border: 2px solid #ff758f;
+            border-radius: 18px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.92);
+            color: #c9184a;
+            font-weight: bold;
+            margin-bottom: 14px;
+            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3, #ffb3c1);
+            background-size: 200% auto;
+            color: #fff;
+            border: none;
+            padding: 11px 28px;
+            font-size: 0.98rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-position: right center;
+            transform: scale(1.05);
+        }
+
+        .error-msg {
+            color: #a4133c;
+            font-size: 0.84rem;
+            margin-top: 10px;
+            display: none;
+            font-weight: 600;
+        }
+
+        #surprise-screen {
+            display: none;
+            animation: fadeIn 0.9s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tap-hint {
+            font-size: 0.72rem;
+            color: #800f2f;
+            background: rgba(255, 255, 255, 0.78);
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+        }
+
+        /* ABEERA Name Cute Feature Tiles */
+        .name-magic-box {
+            background: rgba(255, 255, 255, 0.65);
+            border: 1.5px solid #ffc2d1;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .name-magic-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #800f2f;
+            margin-bottom: 7px;
+            display: block;
+        }
+
+        .letters-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .letter-tile {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ff758f, #ff4d6d);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid #fff;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.25);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .letter-tile:hover {
+            transform: translateY(-4px) scale(1.08);
+            background: linear-gradient(135deg, #ff4d6d, #c9184a);
+        }
+
+        /* Mood Selector */
+        .mood-section {
+            margin: 8px 0;
+        }
+
+        .mood-label {
+            font-size: 0.75rem;
+            color: #590d22;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .mood-btns {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .mood-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #ff8fa3;
+            color: #800f2f;
+            padding: 4px 9px;
+            border-radius: 15px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mood-btn:hover {
+            background: #ff4d6d;
+            color: #fff;
+        }
+
+        /* Shayari Box */
+        .shayari-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,243,0.94));
+            padding: 13px;
+            border-radius: 20px;
+            margin: 10px 0;
+            font-size: 0.88rem;
+            color: #590d22;
+            line-height: 1.58;
+            border: 1.5px solid #ffb3c1;
+            box-shadow: 0 6px 15px rgba(255, 77, 109, 0.12);
+        }
+
+        .shayari-title {
+            font-weight: 600;
+            color: #c9184a;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .mini-btn {
+            background: #fff0f3;
+            color: #c9184a;
+            border: 1px solid #ff758f;
+            padding: 5px 11px;
+            border-radius: 20px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mini-btn:hover {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        /* Gifts Row */
+        .gifts-row {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            gap: 8px;
+        }
+
+        .gift-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 10px;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.15);
+            border: 1.5px solid #ffc2d1;
+            flex: 1;
+        }
+
+        .gift-box span {
+            font-size: 1.45rem;
+            display: block;
+        }
+
+        .gift-box small {
+            font-size: 0.68rem;
+            color: #800f2f;
+            font-weight: 600;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-4px);
+            background: #ffe5ec;
+        }
+
+        .gift-message {
+            margin-top: 11px;
+            font-weight: 600;
+            color: #a4133c;
+            min-height: 48px;
+            font-size: 0.86rem;
+            background: rgba(255, 255, 255, 0.78);
+            padding: 8px 12px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 117, 143, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Bubu Dudu Hearts & Sparkles -->
+    <div class="floating-container" id="floating-container"></div>
+
+    <!-- SCREEN 1: LOCK SCREEN -->
+    <div class="glass-card" id="lock-screen">
+        <span class="crown-badge">👑</span>
+        <!-- Bubu Dudu Cute Sticker -->
+        <img src="https://media.tenor.com/b60d0A3Z-4kAAAAi/tkthao219-bubududu.gif" alt="Bubu Dudu Cute" class="cute-sticker">
+        
+        <h1>Princess Abeera</h1>
+        <p class="subtitle">Bubu & Dudu ki pyari si duniya sirf <b>Abeera</b> ke liye 💖<br>Secret PIN daalein:</p>
+        
+        <input type="password" id="pin-code" class="pin-input" maxlength="6" placeholder="••••">
+        <br>
+        <button class="btn" onclick="checkPin()">Unlock Bubu & Dudu World ✨</button>
+        <div class="error-msg" id="error-msg">Aww! Galat PIN hai meri Abeera, phir se try karein 🥺💕</div>
+    </div>
+
+    <!-- SCREEN 2: MAIN SURPRISE SCREEN -->
+    <div class="glass-card" id="surprise-screen">
+        <span class="crown-badge">👑✨</span>
+        <!-- Bubu Dudu Hugging Sticker -->
+        <img src="https://media.tenor.com/J9mOaX2581sAAAAi/bubu-dudu-bubu.gif" id="main-sticker" alt="Bubu Dudu Hug" class="cute-sticker" onclick="sendHug()">
+        <div class="tap-hint">👆 Bubu & Dudu par tap karein hug ke liye!</div>
+        
+        <h1>Abeera, Meri Jaan 💖</h1>
+
+        <!-- Cute Name Feature: A-B-E-E-R-A -->
+        <div class="name-magic-box">
+            <span class="name-magic-title">✨ Abeera Ke Naam Ka Cute Magic (Har Letter Par Tap Karein) ✨</span>
+            <div class="letters-row">
+                <button class="letter-tile" onclick="showLetterFeature('A')">A</button>
+                <button class="letter-tile" onclick="showLetterFeature('B')">B</button>
+                <button class="letter-tile" onclick="showLetterFeature('E1')">E</button>
+                <button class="letter-tile" onclick="showLetterFeature('E2')">E</button>
+                <button class="letter-tile" onclick="showLetterFeature('R')">R</button>
+                <button class="letter-tile" onclick="showLetterFeature('A2')">A</button>
+            </div>
+        </div>
+
+        <!-- Mood Selector -->
+        <div class="mood-section">
+            <span class="mood-label">Bubu & Dudu ka Mood Check — Abeera kaisa feel kar rahi hain?</span>
+            <div class="mood-btns">
+                <button class="mood-btn" onclick="setMood('cute')">🐻 Cute</button>
+                <button class="mood-btn" onclick="setMood('royal')">👑 Princess</button>
+                <button class="mood-btn" onclick="setMood('sleepy')">😴 Sleepy</button>
+                <button class="mood-btn" onclick="setMood('miss')">🥺 Miss You</button>
+            </div>
+        </div>
+        
+        <!-- Shayari & Compliment Box -->
+        <div class="shayari-box">
+            <span class="shayari-title">💌 Bubu & Dudu Ki Shayari For Abeera 💌</span>
+            <div id="shayari-text">
+                "Hazaron mehfilein hain aur lakhon mele hain,<br>
+                Par jahan tum nahi wahan hum bilkul akele hain...<br>
+                Meri har khushi ki wajah sirf tum ho, <b>Abeera</b>! ❤️"
+            </div>
+            <div class="action-row">
+                <button class="mini-btn" onclick="changeShayari()">Next Shayari 💌</button>
+                <button class="mini-btn" onclick="giveCompliment()">Cute Compliment ✨</button>
+            </div>
+        </div>
+
+        <!-- 3 Special Boxes -->
+        <div class="gifts-row">
+            <div class="gift-box" onclick="openGift(1)">
+                <span>👑</span>
+                <small>Princess</small>
+            </div>
+            <div class="gift-box" onclick="openGift(2)">
+                <span>🧸</span>
+                <small>Bubu Hug</small>
+            </div>
+            <div class="gift-box" onclick="openGift(3)">
+                <span>💝</span>
+                <small>Promise</small>
+            </div>
+        </div>
+
+        <div class="gift-message" id="gift-display">Bubu & Dudu keh rahe hain: Kisi bhi letter ya gift par tap karein Abeera! 💖</div>
+    </div>
+
+    <script>
+        // 1. Floating Bubu Dudu Hearts & Sparkles
+        const container = document.getElementById('floating-container');
+        const emojis = ['👑', '💖', '🌸', '✨', '🎀', '💕', '🧸'];
+
+        function createFloater() {
+            const floater = document.createElement('div');
+            floater.classList.add('floater');
+            floater.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            floater.style.left = Math.random() * 100 + 'vw';
+            floater.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            floater.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+            container.appendChild(floater);
+
+            setTimeout(() => {
+                floater.remove();
+            }, 8000);
+        }
+        setInterval(createFloater, 450);
+
+        // 2. PIN Check (2323)
+        const CORRECT_PIN = "2323"; 
+
+        function checkPin() {
+            const enteredPin = document.getElementById('pin-code').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (enteredPin === CORRECT_PIN) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('surprise-screen').style.display = 'block';
+                burstEmojis();
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        document.getElementById("pin-code").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPin();
+            }
+        });
+
+        // 3. Cute Name Features for A-B-E-E-R-A
+        function showLetterFeature(letter) {
+            const display = document.getElementById('gift-display');
+            const sticker = document.getElementById('main-sticker');
+            burstEmojis();
+
+            if (letter === 'A') {
+                sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                display.innerText = "💖 A for Adorable: Abeera ki har chhoti si ada sabse zyada adorable hai!";
+            } else if (letter === 'B') {
+                sticker.src = "https://media.tenor.com/J9mOaX2581sAAAAi/bubu-dudu-bubu.gif";
+                display.innerText = "🐻 B for Bubu's Favorite: Bubu & Dudu dono ki sabse pyari dost Abeera hain!";
+            } else if (letter === 'E1') {
+                sticker.src = "https://media.tenor.com/b60d0A3Z-4kAAAAi/tkthao219-bubududu.gif";
+                display.innerText = "✨ E for Enchanting: Abeera ki muskurahat kisi jaadu se kam nahi!";
+            } else if (letter === 'E2') {
+                sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                display.innerText = "🌸 E for Endless Love: Abeera ke liye pyar kabhi khatam nahi hoga!";
+            } else if (letter === 'R') {
+                sticker.src = "https://media.tenor.com/J9mOaX2581sAAAAi/bubu-dudu-bubu.gif";
+                display.innerText = "👑 R for Royalty: Abeera asli princess hain, unka crown hamesha chamakta rahe!";
+            } else if (letter === 'A2') {
+                sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                display.innerText = "💝 A for Always Mine: Meri jaan Abeera hamesha itni hi special rahengi!";
+            }
+        }
+
+        // 4. Shayari Collection
+        const shayaris = [
+            `"Hazaron mehfilein hain aur lakhon mele hain,<br>Par jahan tum nahi wahan hum bilkul akele hain...<br>Meri har khushi ki wajah sirf tum ho, <b>Abeera</b>! ❤️"`,
+            `"Teri muskurahat se hi meri subah hoti hai,<br>Tere khayalon mein hi meri shaam dhalti hai...<br>Tum koi aam ladki nahi, mere dil ki <b>Princess</b> ho! 👑✨"`,
+            `"Chaand ko guroor hai ke uske paas noor hai,<br>Par use kya pata ke mere paas meri <b>Abeera</b> hai! 🌙💖"`,
+            `"Bubu maange dher saara pyar aur Dudu maange muskaan,<br>Aise hi khush rahein hamesha meri jaan <b>Abeera</b> jaan! 🐻💕"`
+        ];
+        let shayariIndex = 0;
+
+        function changeShayari() {
+            shayariIndex = (shayariIndex + 1) % shayaris.length;
+            document.getElementById('shayari-text').innerHTML = shayaris[shayariIndex];
+            burstEmojis();
+        }
+
+        // 5. Cute Compliments
+        const compliments = [
+            "🧸 Bubu says: Abeera jaisa cute aur sweet koi nahi hai!",
+            "👑 Princess Meter: 1000/100 — Abeera full royal & cute mode mein hain!",
+            "💖 Dudu says: Ek pyari si smile dein Abeera, sab kuch bright ho jayega!",
+            "🌸 Aapki har baat mein ek alag hi mithas hai, Meri Jaan Abeera!"
+        ];
+        let compIndex = 0;
+
+        function giveCompliment() {
+            document.getElementById('gift-display').innerText = compliments[compIndex];
+            compIndex = (compIndex + 1) % compliments.length;
+            burstEmojis();
+        }
+
+        // 6. Mood Selector
+        function setMood(mood) {
+            const display = document.getElementById('gift-display');
+            const sticker = document.getElementById('main-sticker');
+            burstEmojis();
+
+            if (mood === 'cute') {
+                sticker.src = "https://media.tenor.com/J9mOaX2581sAAAAi/bubu-dudu-bubu.gif";
+                display.innerText = "🐻 Cute Mode: Abeera jab cute banti hain toh Bubu aur Dudu dono fida ho jaate hain!";
+            } else if (mood === 'royal') {
+                sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                display.innerText = "👑 Princess Mode: Full royal treatment for Princess Abeera!";
+            } else if (mood === 'sleepy') {
+                sticker.src = "https://media.tenor.com/b60d0A3Z-4kAAAAi/tkthao219-bubududu.gif";
+                display.innerText = "😴 Sleepy Mode: Neend aa rahi hai meri jaan ko? Pyare-pyare sapne aayein Abeera ko!";
+            } else if (mood === 'miss') {
+                sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                display.innerText = "🥺 Miss You Mode: Bohat zyada yaad aa rahi hain Abeera, ek big hug!";
+            }
+        }
+
+        // 7. Hug Sticker Tap
+        function sendHug() {
+            const sticker = document.getElementById('main-sticker');
+            sticker.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+            document.getElementById('gift-display').innerText = "🫂 Bubu & Dudu ka sabse tight aur pyara hug sirf Princess Abeera ke liye! 💖";
+            burstEmojis();
+            
+            setTimeout(() => {
+                sticker.src = "https://media.tenor.com/J9mOaX2581sAAAAi/bubu-dudu-bubu.gif";
+            }, 3500);
+        }
+
+        // 8. Gift Boxes
+        function openGift(num) {
+            const display = document.getElementById('gift-display');
+            burstEmojis();
+            if (num === 1) {
+                display.innerText = "👑 Royal Promise: Abeera hamesha ek special princess ki tarah treated hongi!";
+            } else if (num === 2) {
+                display.innerText = "🧸 Bubu Hug: Jab bhi dil kare, yeh cute teddy aur hug aapke saath hai!";
+            } else if (num === 3) {
+                display.innerText = "💝 Forever Note: Har khushi aur har pal mein saath, Meri Jaan Abeera!";
+            }
+        }
+
+        function burstEmojis() {
+            for(let j = 0; j < 14; j++) {
+                setTimeout(createFloater, j * 70);
+            }
+        }
+    </script>
+</body>
+</html>
